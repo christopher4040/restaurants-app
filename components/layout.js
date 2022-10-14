@@ -2,21 +2,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Container, Nav, NavItem, Badge } from "reactstrap";
+import { Container, Nav, NavItem, Button, Badge } from "reactstrap";
 import AppContext from "./context";
 import { logout } from "./auth";
+import Cart from "../components/cart";
 
 const Layout = (props) => {
   const title = "Restaurants";
-  const { user, setUser } = useContext(AppContext);
+  const {cart, user, setUser } = useContext(AppContext);
 
   // Navbar
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
-  useEffect((res) => {
-    console.log("User: ", user);
-  }, user);
   return (
     <div>
       <Head>
@@ -65,20 +63,25 @@ const Layout = (props) => {
             </Link>
           </NavItem>
 
-          <NavItem className="ms-auto px-3 py-2">
-            <Link href="/">
-              <a >
+          <NavItem className="ms-auto px-2 py-2">
+            <Button
+              onClick={toggle}
+              style={{ backgroundColor: "transparent", border: "none" }}
+            >
+              <a>
                 {/* <Badge style={{color: "grey"}}>
                   1
                 </Badge> */}
 
                 <ion-icon
-
                   name="cart"
-                  style={{ color: "white", fontSize: "24px", display: "flex" }}
+                  style={{ color: "white", fontSize: "24px", marginRight: "-16px", marginTop: "4px" }}
                 ></ion-icon>
               </a>
-            </Link>
+            </Button>
+            <Badge style={{width: "0", top: "-11px", left: "-3px", position: "relative"}} color="white">
+                {cart.items.length}
+              </Badge>
           </NavItem>
 
           <NavItem>
@@ -110,6 +113,7 @@ const Layout = (props) => {
             )}
           </NavItem>
         </Nav>
+        <Cart toggle={toggle} isOpen={isOpen}></Cart>
       </header>
       <Container>{props.children}</Container>
     </div>

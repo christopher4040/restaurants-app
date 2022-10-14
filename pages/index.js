@@ -22,7 +22,7 @@ function Home() {
       <div className="search my-5">
         <h6>Search your desire restaurant...</h6>
         <InputGroup style={{ maxWidth: "600px" }}>
-          <InputGroupText addonType="append"> Search </InputGroupText>
+          <InputGroupText addontype="append"> Search </InputGroupText>
           <Input
             onChange={(e) => setQuery(e.target.value.toLocaleLowerCase())}
             value={query}
@@ -31,7 +31,7 @@ function Home() {
         {/* <br></br> */}
       </div>
       <RestaurantList className="my-5" search={query} />
-      <Cart> </Cart>
+      {/* <Cart> </Cart> */}
     </ApolloProvider>
   );
 }
