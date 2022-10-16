@@ -20,8 +20,8 @@ function Home() {
   return (
     <ApolloProvider client={client}>
       <div className="search my-5">
-        <h6>Search your desire restaurant...</h6>
-        <InputGroup style={{ maxWidth: "600px" }}>
+        <h6 className="text-center">Search your desire restaurant...</h6>
+        <InputGroup className="mx-auto" style={{ maxWidth: "600px" }}>
           <InputGroupText addontype="append"> Search </InputGroupText>
           <Input
             onChange={(e) => setQuery(e.target.value.toLocaleLowerCase())}

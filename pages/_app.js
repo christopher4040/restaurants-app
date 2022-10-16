@@ -10,6 +10,7 @@ function MyApp(props) {
   const [state, setState] = useState({ cart: cart });
   const { Component, pageProps } = props;
   let [user, setUser] = useState(null);
+  let [totalItems, setTotalItems] = useState(0);
 
   // setUser = (user) => {
   //   setState({ user });
@@ -54,6 +55,7 @@ function MyApp(props) {
       };
     }
     setState({ cart: newCart }); // problem is this is not updated yet
+    setTotalItems((totalItems += 1));
     console.log(`state reset to cart:${JSON.stringify(state)}`);
   };
   removeItem = (item) => {
@@ -79,6 +81,7 @@ function MyApp(props) {
       items.splice(index, 1);
       var newCart = { items: items, total: state.cart.total - item.price };
     }
+    setTotalItems((totalItems -= 1));
     setState({ cart: newCart });
   };
 
@@ -91,6 +94,7 @@ function MyApp(props) {
         isAuthenticated: false,
         user: user,
         setUser: setUser,
+        totalItems: totalItems,
       }}
     >
       <Head>

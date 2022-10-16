@@ -2,14 +2,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Container, Nav, NavItem, Button, Badge } from "reactstrap";
+import {
+  Container,
+  Navbar,
+  NavItem,
+  NavLink,
+  Button,
+  Badge,
+  NavbarBrand,
+} from "reactstrap";
 import AppContext from "./context";
 import { logout } from "./auth";
 import Cart from "../components/cart";
 
 const Layout = (props) => {
   const title = "Restaurants";
-  const {cart, user, setUser } = useContext(AppContext);
+  const { cart, user, setUser, totalItems } = useContext(AppContext);
 
   // Navbar
   const [isOpen, setIsOpen] = useState(false);
@@ -44,75 +52,91 @@ const Layout = (props) => {
       <header>
         <style jsx>
           {`
-            a {
-              color: white;
-            }
-            a:hover {
-              color: grey;
-            }
             h5 {
               color: white;
-              padding-top: 11px;
             }
           `}
         </style>
-        <Nav className="navbar navbar-dark bg-dark ps-3">
-          <NavItem>
-            <Link href="/">
-              <a className="navbar-brand">Restaurants</a>
-            </Link>
-          </NavItem>
+        <Navbar light style={{ borderBottom: "solid 1px rgba(0,0,0,.125)" }}>
+          <Container>
+            <NavbarBrand className="fw-bold" style={{color: "rgba(0, 0, 0, .6)"}} href="/">Restaurants</NavbarBrand>
 
-          <NavItem className="ms-auto px-2 py-2">
-            <Button
-              onClick={toggle}
-              style={{ backgroundColor: "transparent", border: "none" }}
-            >
-              <a>
-                {/* <Badge style={{color: "grey"}}>
-                  1
-                </Badge> */}
-
-                <ion-icon
-                  name="cart"
-                  style={{ color: "white", fontSize: "24px", marginRight: "-16px", marginTop: "4px" }}
-                ></ion-icon>
-              </a>
-            </Button>
-            <Badge style={{width: "0", top: "-11px", left: "-3px", position: "relative"}} color="white">
-                {cart.items.length}
-              </Badge>
-          </NavItem>
-
-          <NavItem>
-            {user ? (
-              <h5>{user.username}</h5>
-            ) : (
-              <Link href="/register">
-                <a className="nav-link">Sign up</a>
-              </Link>
-            )}
-          </NavItem>
-          <NavItem>
-            {user ? (
-              <Link href="/">
-                <a
-                  className="nav-link"
-                  onClick={() => {
-                    logout();
-                    setUser(null);
-                  }}
-                >
-                  Logout
-                </a>
-              </Link>
-            ) : (
-              <Link href="/login">
-                <a className="nav-link">Sign in</a>
-              </Link>
-            )}
-          </NavItem>
-        </Nav>
+            <NavItem className="ms-auto me-2 d-flex">
+              <Button
+                onClick={toggle}
+                style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  width: "100%",
+                }}
+              >
+                <div>
+                  <a>
+                    <ion-icon
+                      name="cart"
+                      style={{
+                        color: "rgba(0,0,0,.6)",
+                        fontSize: "26px",
+                        marginRight: "-16px",
+                        marginTop: "4px",
+                      }}
+                    ></ion-icon>
+                  </a>
+                  <Badge
+                    style={{
+                      width: "0",
+                      top: "-23px",
+                      left: "4px",
+                      position: "relative",
+                      color: "rgba(0,0,0,.6)",
+                    }}
+                  >
+                    {totalItems > 0 ? totalItems : " "}
+                  </Badge>
+                </div>
+              </Button>
+            </NavItem>
+            <NavItem className="d-flex">
+              {user ? (
+                <span className="ms-1 me-3" style={{ color: "rgba(0, 0, 0, .6)" }}>
+                  <b>{user.username}</b>
+                </span>
+              ) : (
+                <Button className="p-0 mx-2" color="secondary" outline>
+                  <NavLink style={{ color: "rgba(0, 0, 0, .6)" }} href="/login">
+                    Log in
+                  </NavLink>
+                </Button>
+              )}
+            </NavItem>
+            {user ? (null) : <span style={{ color: "rgba(0, 0, 0, .4)" }}>or</span>}
+            <NavItem className="d-flex">
+              {user ? (
+                <Button className="p-0 mx-2" color="secondary">
+                  <NavLink
+                    style={{ color: "white" }}
+                    href="/"
+                    onClick={() => {
+                      logout();
+                      setUser(null);
+                    }}
+                  >
+                    Logout
+                  </NavLink>
+                </Button>
+              ) : (
+                <Button className="p-0 mx-2" size="md">
+                  <NavLink style={{ color: "white" }} href="/register">
+                    Sign up
+                  </NavLink>
+                </Button>
+                
+              )}
+            </NavItem>
+            {/* <span style={{ color: "rgba(0, 0, 0, .4)" }}>or</span> */}
+            
+          </Container>
+        </Navbar>
         <Cart toggle={toggle} isOpen={isOpen}></Cart>
       </header>
       <Container>{props.children}</Container>

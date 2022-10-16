@@ -10,15 +10,16 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Table,
+  Table
 } from "reactstrap";
 import AppContext from "./context";
 import Link from "next/link";
+import Checkout from "../pages/checkout";
 // we can pass cart data in via props method
 // the alternative is using useContext as below
 function Cart(props) {
   let isAuthenticated = true;
-  let { cart, addItem, removeItem } = useContext(AppContext);
+  let { cart, addItem, removeItem, totalItems } = useContext(AppContext);
 
   const toggle = props.toggle;
 
@@ -33,10 +34,6 @@ function Cart(props) {
         alignItems: "center",
         height: "30px",
         display: "flex",
-        // padding-bottom: 10px;
-        // display: flex;
-        /* justify-content: center; */
-        // height: 30px;
       }}
       onClick={toggle}
       type="button"
@@ -56,19 +53,13 @@ function Cart(props) {
   const renderItems = () => {
     let { items } = cart;
     console.log(`items: ${JSON.stringify(items)}`);
+    console.log(`Total Items: ${totalItems}`);
     if (items && items.length) {
       var itemList = cart.items.map((item) => {
         if (item.quantity > 0) {
           return (
             <>
               <Table className="m-0">
-                {/* <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead> */}
                 <tbody style={{ verticalAlign: "middle" }}>
                   <tr key={item.id}>
                     <td style={{ width: "0" }}>
@@ -129,48 +120,6 @@ function Cart(props) {
                 </tbody>
               </Table>
             </>
-            // <div
-            //   className="items-one"
-            //   style={{ marginBottom: 15 }}
-            //   key={item.id}
-            // >
-            //   <div>
-            //   <img height={56} src={`http://localhost:1337`+item.image.url}></img>
-
-            //     <span id="item-price">&nbsp; ${item.price}</span>
-            //     <span id="item-name">&nbsp; {item.name}</span>
-            //   </div>
-            //   <div>
-            //     <Button
-            //       style={{
-            //         height: 25,
-            //         padding: 0,
-            //         width: 15,
-            //         marginRight: 5,
-            //         marginLeft: 10,
-            //       }}
-            //       onClick={() => addItem(item)}
-            //       color="link"
-            //     >
-            //       +
-            //     </Button>
-            //     <Button
-            //       style={{
-            //         height: 25,
-            //         padding: 0,
-            //         width: 15,
-            //         marginRight: 10,
-            //       }}
-            //       onClick={() => removeItem(item)}
-            //       color="link"
-            //     >
-            //       -
-            //     </Button>
-            // <span style={{ marginLeft: 5 }} id="item-quantity">
-            //   {item.quantity}x
-            // </span>
-            //   </div>
-            // </div>
           );
         }
       });
@@ -201,7 +150,7 @@ function Cart(props) {
         </Table>
         <div className="mt-5">
           <Link href="/checkout/">
-            <Button style={{ width: "100%" }} color="primary">
+            <Button style={{ width: "100%" }} color="primary" onClick={toggle}>
               <a>Checkout</a>
             </Button>
           </Link>
