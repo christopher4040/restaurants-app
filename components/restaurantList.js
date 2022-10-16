@@ -91,9 +91,11 @@ function RestaurantList(props) {
               style={{height: "80%"}}
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title>{rest.id}</Offcanvas.Title>
+                <Offcanvas.Title>{rest.length != 0 ? rest[0].name: ''}</Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
+                <span style={{color: "rgba(0,0,0,.6)"}}>{rest.length != 0 ? rest[0].description: ''}</span>
+                <br/><br/>
               <Row xs='3'>
           {renderDishes(restaurantID)}
         </Row>
