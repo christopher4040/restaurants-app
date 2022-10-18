@@ -5,11 +5,6 @@ import {
   Card,
   CardBody,
   CardTitle,
-  Badge,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Table
 } from "reactstrap";
 import AppContext from "./context";
@@ -19,28 +14,83 @@ import Checkout from "../pages/checkout";
 // the alternative is using useContext as below
 function Cart(props) {
   let isAuthenticated = true;
-  let { cart, addItem, removeItem, totalItems } = useContext(AppContext);
+  let { cart, addItem, removeItem } = useContext(AppContext);
+  const [state, setState] = useState({ cart: cart });
+  let [totalItems, setTotalItems] = useState(0);
 
   const toggle = props.toggle;
 
-  const closeBtn = (
-    <Button
-      className="close fs-2"
-      style={{
-        backgroundColor: "transparent",
-        border: "none",
-        color: "rgb(33, 37, 41)",
-        fontSize: "28px",
-        alignItems: "center",
-        height: "30px",
-        display: "flex",
-      }}
-      onClick={toggle}
-      type="button"
-    >
-      &times;
-    </Button>
-  );
+  // addItem = (item) => {
+  //   let { items } = state.cart;
+  //   //check for item already in cart
+  //   //if not in cart, add item if item is found increase quanity ++
+  //   let foundItem = true;
+  //   if (items.length > 0) {
+  //     foundItem = items.find((i) => i.id === item.id);
+
+  //     if (!foundItem) foundItem = false;
+  //   } else {
+  //     foundItem = false;
+  //   }
+  //   console.log(`Found Item value: ${JSON.stringify(foundItem)}`);
+  //   // if item is not new, add to cart, set quantity to 1
+  //   if (!foundItem) {
+  //     //set quantity property to 1
+
+  //     let temp = JSON.parse(JSON.stringify(item));
+  //     temp.quantity = 1;
+  //     var newCart = {
+  //       items: [...state.cart.items, temp],
+  //       total: state.cart.total + item.price,
+  //     };
+  //     setState({ cart: newCart });
+  //     console.log(`Total items: ${JSON.stringify(newCart)}`);
+  //   } else {
+  //     // we already have it so just increase quantity ++
+  //     console.log(`Total so far:  ${state.cart.total}`);
+  //     newCart = {
+  //       items: items.map((item) => {
+  //         if (item.id === foundItem.id) {
+  //           return Object.assign({}, item, { quantity: item.quantity + 1 });
+  //         } else {
+  //           return item;
+  //         }
+  //       }),
+  //       total: state.cart.total + item.price,
+  //     };
+  //   }
+  //   setState({ cart: newCart }); // problem is this is not updated yet
+  //   setTotalItems((totalItems += 1));
+  //   console.log(`state reset to cart:${JSON.stringify(state)}`);
+  // };
+  // removeItem = (item) => {
+  //   let { items } = state.cart;
+  //   //check for item already in cart
+  //   const foundItem = items.find((i) => i.id === item.id);
+  //   if (foundItem.quantity > 1) {
+  //     var newCart = {
+  //       items: items.map((item) => {
+  //         if (item.id === foundItem.id) {
+  //           return Object.assign({}, item, { quantity: item.quantity - 1 });
+  //         } else {
+  //           return item;
+  //         }
+  //       }),
+  //       total: state.cart.total - item.price,
+  //     };
+  //     //console.log(`NewCart after remove: ${JSON.stringify(newCart)}`)
+  //   } else {
+  //     // only 1 in the cart so remove the whole item
+  //     console.log(`Try remove item ${JSON.stringify(foundItem)}`);
+  //     const index = items.findIndex((i) => i.id === foundItem.id);
+  //     items.splice(index, 1);
+  //     var newCart = { items: items, total: state.cart.total - item.price };
+  //   }
+  //   setTotalItems((totalItems -= 1));
+  //   setState({ cart: newCart });
+  // };
+
+  
 
   //const [cartA, setCartA] = useState({cart})
   //cart = value.cart;
@@ -155,10 +205,6 @@ function Cart(props) {
             </Button>
           </Link>
         </div>
-        {/* <Badge style={{ width: 200, padding: 10 }} color="dark">
-          <h5 style={{ fontWeight: 100, color: "gray" }}>Total:</h5>
-          <h1 style={{ fontWeight: 600, color: "black" }}>${cart.total}</h1>
-        </Badge> */}
       </div>
     );
   };
@@ -166,11 +212,7 @@ function Cart(props) {
   // return Cart
   return (
     <div>
-      <Modal isOpen={props.isOpen} toggle={toggle} {...props}>
-        <ModalHeader toggle={toggle} close={closeBtn}>
-          My Cart
-        </ModalHeader>
-        <ModalBody>
+     
           <Card
             style={{ padding: "10px 5px", border: "none" }}
             className="cart"
@@ -185,13 +227,7 @@ function Cart(props) {
               {console.log(`Router Path: ${router.asPath}`)}
             </CardBody>
           </Card>
-        </ModalBody>
-        {/* <ModalFooter>
-          <Button color="primary" onClick={toggle}>
-            Checkout
-          </Button>
-        </ModalFooter> */}
-      </Modal>
+        
       <style jsx>{`
         #item-price {
           font-size: 1.3em;

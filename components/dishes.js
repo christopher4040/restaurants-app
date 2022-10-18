@@ -9,10 +9,9 @@ import {
   CardImg,
   CardText,
   CardTitle,
-  Row,
   Col} from "reactstrap";
 function Dishes({restId}){
-  const [restaurantID, setRestaurantID] = useState()
+  // const [restaurantID, setRestaurantID] = useState()
   const {addItem} = useContext(AppContext)
 
 const GET_RESTAURANT_DISHES = gql`

@@ -10,6 +10,9 @@ import {
   Button,
   Badge,
   NavbarBrand,
+  Modal,
+  ModalHeader,
+  ModalBody,
 } from "reactstrap";
 import AppContext from "./context";
 import { logout } from "./auth";
@@ -22,6 +25,25 @@ const Layout = (props) => {
   // Navbar
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  const closeBtn = (
+    <Button
+      className="close fs-2"
+      style={{
+        backgroundColor: "transparent",
+        border: "none",
+        color: "rgb(33, 37, 41)",
+        fontSize: "28px",
+        alignItems: "center",
+        height: "30px",
+        display: "flex",
+      }}
+      onClick={toggle}
+      type="button"
+    >
+      &times;
+    </Button>
+  );
 
   return (
     <div>
@@ -137,7 +159,15 @@ const Layout = (props) => {
             
           </Container>
         </Navbar>
-        <Cart toggle={toggle} isOpen={isOpen}></Cart>
+        <Modal isOpen={isOpen} toggle={toggle} {...props}>
+        <ModalHeader toggle={toggle} close={closeBtn}>
+          My Cart
+        </ModalHeader>
+        <ModalBody>
+          <Cart></Cart>
+
+        </ModalBody>
+      </Modal>
       </header>
       <Container>{props.children}</Container>
     </div>

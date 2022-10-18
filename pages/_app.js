@@ -11,10 +11,11 @@ function MyApp(props) {
   const { Component, pageProps } = props;
   let [user, setUser] = useState(null);
   let [totalItems, setTotalItems] = useState(0);
-
-  // setUser = (user) => {
-  //   setState({ user });
-  // };
+  
+  
+  setUser = (user) => {
+    setState({ user });
+  };
   addItem = (item) => {
     let { items } = state.cart;
     //check for item already in cart
@@ -98,12 +99,6 @@ function MyApp(props) {
       }}
     >
       <Head>
-        {/* <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossOrigin="anonymous"
-        /> */}
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"

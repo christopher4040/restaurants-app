@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Cart from "../components/cart";
+import Dishes from "../components/dishes";
 import {
   ApolloProvider,
   ApolloClient,
@@ -30,8 +31,7 @@ function Home() {
         </InputGroup>
         {/* <br></br> */}
       </div>
-      <RestaurantList className="my-5" search={query} />
-      {/* <Cart> </Cart> */}
+      <RestaurantList className="my-5" style={{textAlign: "center"}} search={query} />
     </ApolloProvider>
   );
 }
