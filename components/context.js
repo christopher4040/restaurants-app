@@ -8,6 +8,7 @@ const AppContext = React.createContext(
     {isAuthenticated:true, 
         cart: {items:[], 
         total:0},
+        dishes: [],
         addItem:()=>{},
         removeItem:()=>{},
         user:false, 

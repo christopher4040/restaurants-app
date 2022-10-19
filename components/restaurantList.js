@@ -1,7 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import Dishes from "./dishes";
-import { useContext, useState } from "react";
-import DishModal from "./dishMotal";
+// import Dishes from "./dishes";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "./context";
 import {
   Button,
@@ -14,17 +13,21 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Modal from "react-bootstrap/Modal";
+import router, { useRouter } from "next/router";
 
 function RestaurantList(props) {
-  const [restaurantID, setRestaurantID] = useState(0);
-  const { cart } = useContext(AppContext);
-  const [show, setShow] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  function handleShow() {
-    setShow(true);
-  }
+  const appContext = useContext(AppContext);
+  console.log(appContext.dishes);
+  const [restaurantID, setRestaurantID] = useState(-1);
+
+  useEffect(() => {
+    if (restaurantID >= 0) {
+      router.push('/restaurant/' + restaurantID);
+    } else {
+      console.log('Restaurant not found')
+    }
+  }, [restaurantID]);
+  
   const GET_RESTAURANTS = gql`
     query {
       restaurants {
@@ -37,42 +40,55 @@ function RestaurantList(props) {
       }
     }
   `;
+
+  const GET_RESTAURANT_DISHES = gql`
+  query($id: ID!) {
+    restaurant(id: $id) {
+      id
+      name
+      dishes {
+        id
+        name
+        description
+        price
+        image {
+          url
+        }
+      }
+    }
+  }
+`;
+
+
   const { loading, error, data } = useQuery(GET_RESTAURANTS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>ERROR</p>;
   if (!data) return <p>Not found</p>;
   console.log(`Query Data: ${data.restaurants}`);
 
+  const router = useRouter();
+
   let searchQuery =
     data.restaurants.filter((res) => {
       return res.name.toLowerCase().includes(props.search);
     }) || [];
 
-  const closeBtn = (
-    <Button
-      className="close fs-2"
-      style={{
-        backgroundColor: "transparent",
-        border: "none",
-        color: "rgb(33, 37, 41)",
-        fontSize: "28px",
-        alignItems: "center",
-        height: "30px",
-        display: "flex",
-      }}
-      onClick={toggle}
-      type="button"
-    >
-      &times;
-    </Button>
-  );
-
-  let restId = searchQuery[0] ? searchQuery[0].id : null;
-  let rest = data.restaurants.filter((res) => res.id === restaurantID);
+  const handleRestaurant = (resID) => {
+    setRestaurantID(resID)
+    // renderDishes();
+    router.push(restaurantID)
+  }
 
   // definet renderer for Dishes
-  const renderDishes = (restaurantID) => {
-    return <Dishes restId={restaurantID}> </Dishes>;
+  const renderDishes = () => {
+    const { loadingDishes, errorDishes, dataDishes } = useQuery(GET_RESTAURANT_DISHES, {
+      variables: { id: restaurantID},
+    });
+    if (loadingDishes) return <p>Loading...</p>;
+    if (errorDishes) return <p>ERROR</p>;
+    if (!dataDishes) return <p>Not found dishes</p>;
+    
+    console.log(`Dishes: ${dataDishes}`);
   };
 
   if (searchQuery.length > 0) {
@@ -80,7 +96,8 @@ function RestaurantList(props) {
       <Col style={{ textAlign: "center" }} xs="12" sm="6" lg="4" key={res.id}>
         <Button
           onClick={() => {
-            setRestaurantID(res.id), handleShow();
+            handleRestaurant(res.id)
+            // setRestaurantID(res.id)
           }}
           className="p-0 border-0"
         >
@@ -97,7 +114,7 @@ function RestaurantList(props) {
               src={`http://localhost:1337` + res.image.url}
             />
 
-            <div className="card-footer text-center">
+            {/* <div className="card-footer text-center">
               <Button
                 color="primary"
                 className="w-75"
@@ -106,7 +123,7 @@ function RestaurantList(props) {
                 }}
               >
                 {res.name}
-              </Button>
+              </Button> */}
 
               {/* <Modal isOpen={dishesModal} toggle={() => handleShowModal(false)}>
                 <ModalHeader toggle={() => handleShowModal(false)} close={closeBtn}>
@@ -121,7 +138,7 @@ function RestaurantList(props) {
                   <Row xs="3">{renderDishes(restaurantID)}</Row>
                 </ModalBody>
               </Modal> */}
-            </div>
+            {/* </div> */}
           </Card>
         </Button>
       </Col>
@@ -133,7 +150,7 @@ function RestaurantList(props) {
         <br />
         <br />
         <br />
-        <Row xs="3">{renderDishes(restaurantID)}</Row>
+        {/* <Row xs="3">{renderDishes(restaurantID)}</Row> */}
       </Container>
     );
   } else {

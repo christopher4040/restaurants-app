@@ -31,7 +31,8 @@ function Home() {
         </InputGroup>
         {/* <br></br> */}
       </div>
-      <RestaurantList className="my-5" style={{textAlign: "center"}} search={query} />
+      <RestaurantList className="my-5" style={{textAlign: "center"}} search={query}/>
+      
     </ApolloProvider>
   );
 }

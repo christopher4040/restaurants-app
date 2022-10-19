@@ -81,7 +81,7 @@ const Layout = (props) => {
         </style>
         <Navbar light style={{ borderBottom: "solid 1px rgba(0,0,0,.125)" }}>
           <Container>
-            <NavbarBrand className="fw-bold" style={{color: "rgba(0, 0, 0, .6)"}} href="/">Restaurants</NavbarBrand>
+            <NavbarBrand className="fw-bold" style={{color: "rgba(0, 0, 0, .8)"}} href="/">Restaurants</NavbarBrand>
 
             <NavItem className="ms-auto me-2 d-flex">
               <Button
