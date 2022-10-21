@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start"
   },
   "dependencies": {
@@ -22,8 +22,8 @@
     "reactstrap": "^8.10.1",
     "stripe": "^10.12.0"
   },
-  "description": "Exercise05 is full Shopping Cart with Stripe Billing",
+  "description": "Restaurant application",
   "main": "index.js",
-  "author": "jrw@mit.edu",
+  "author": "christopherpr101@gmail.com",
   "license": "MIT"
 }
