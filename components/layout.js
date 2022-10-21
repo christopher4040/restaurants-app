@@ -152,10 +152,8 @@ const Layout = (props) => {
                     Sign up
                   </NavLink>
                 </Button>
-                
               )}
             </NavItem>
-            {/* <span style={{ color: "rgba(0, 0, 0, .4)" }}>or</span> */}
             
           </Container>
         </Navbar>
