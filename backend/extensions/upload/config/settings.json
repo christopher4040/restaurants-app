@@ -1,0 +1,11 @@
+{
+  "provider": "aws-s3",
+  "providerOptions": {
+    "accessKeyId": "AKIAYL7BD7H7AXDIXUGF",
+    "secretAccessKey": "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",
+    "region": "us-east-2",
+    "params": {
+      "Bucket": "api.chma-restaurant-app"
+    }
+  }
+}
