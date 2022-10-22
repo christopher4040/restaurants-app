@@ -111,7 +111,7 @@ function RestaurantList(props) {
             <CardImg
               top={true}
               style={{ height: 200 }}
-              src={`http://chma-restaurant-app.s3-website.us-east-2.amazonaws.com` + res.image.url}
+              src={`http://localhost:1337` + res.image.url}
             />
 
             {/* <div className="card-footer text-center">
