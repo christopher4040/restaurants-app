@@ -57,7 +57,7 @@ function Dishes({ restaurantID }) {
                 <CardImg
                   top={true}
                   style={{ height: 150, width: 150 }}
-                  src={`http://localhost:1337${res.image.url}`}
+                  src={`http://chma-restaurant-app.s3-website.us-east-2.amazonaws.com${res.image.url}`}
                 />
                 <CardBody>
                   <CardTitle>{res.name}</CardTitle>

@@ -115,7 +115,7 @@ function Cart(props) {
                     <td style={{ width: "0" }}>
                       <img
                         height={64}
-                        src={`http://localhost:1337` + item.image.url}
+                        src={`http://chma-restaurant-app.s3-website.us-east-2.amazonaws.com/` + item.image.url}
                       ></img>
                     </td>
                     <td>
