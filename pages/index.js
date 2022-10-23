@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Cart from "../components/cart";
-import Dishes from "../components/dishes";
+// import Cart from "../components/cart";
+// import Dishes from "../components/dishes";
 import {
   ApolloProvider,
   ApolloClient,
