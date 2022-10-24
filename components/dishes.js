@@ -57,7 +57,7 @@ function Dishes({ restaurantID }) {
                 <CardImg
                   top={true}
                   style={{ height: 150, width: 150 }}
-                  src={`http://localhost:1337${res.image.url}`}
+                  src={`https://restaurants-app-backend.herokuapp.com${res.image.url}`}
                 />
                 <CardBody>
                   <CardTitle>{res.name}</CardTitle>
