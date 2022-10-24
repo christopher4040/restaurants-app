@@ -21,7 +21,7 @@ function Home() {
   return (
     <ApolloProvider client={client}>
       <div className="search my-5">
-        <h6 className="text-center">Search restaurant..</h6>
+        <h6 className="text-center">Search restaurant...</h6>
         <InputGroup className="mx-auto" style={{ maxWidth: "600px" }}>
           <InputGroupText addontype="append"> Search </InputGroupText>
           <Input
