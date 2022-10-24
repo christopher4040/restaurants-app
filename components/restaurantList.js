@@ -111,7 +111,7 @@ function RestaurantList(props) {
             <CardImg
               top={true}
               style={{ height: 200 }}
-              src={`https://restaurants-app-backend.herokuapp.com` + res.image.url}
+              src={`http://localhost:1337` + res.image.url}
             />
 
             {/* <div className="card-footer text-center">

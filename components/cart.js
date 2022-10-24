@@ -115,7 +115,7 @@ function Cart(props) {
                     <td style={{ width: "0" }}>
                       <img
                         height={64}
-                        src={`https://restaurants-app-backend.herokuapp.com` + item.image.url}
+                        src={`http://localhost:1337` + item.image.url}
                       ></img>
                     </td>
                     <td>
