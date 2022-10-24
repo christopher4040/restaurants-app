@@ -13,7 +13,7 @@ import {
 function Restaurant() {
   const router = useRouter();
   const restaurantID = router.query.restaurantID;
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://restaurants-app-backend.herokuapp.com";
   console.log(`URL: ${API_URL}`);
   const [query, setQuery] = useState("");
   const link = new HttpLink({ uri: `${API_URL}/graphql` });
